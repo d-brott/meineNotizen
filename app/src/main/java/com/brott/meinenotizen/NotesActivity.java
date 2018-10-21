@@ -63,7 +63,7 @@ public class NotesActivity extends AppCompatActivity {
                     ft.remove(prev);
                 }
                 ft.addToBackStack(null);
-                NewSubjectFragment dialogFragment = new NewSubjectFragment();
+                NewEntryFragment dialogFragment = new NewEntryFragment();
                 dialogFragment.show(ft, "entry_dialog");
             }
         });
