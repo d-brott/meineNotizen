@@ -10,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +27,8 @@ import java.util.logging.Logger;
 public class NotesActivity extends AppCompatActivity {
     private static final Logger LOGGER = Logger.getLogger(NotesActivity.class.getName());
 
-    private TextView entryTextView;
+    private RecyclerView recyclerView;
+    private EntryRecyclerViewAdapter adapter;
 
     private EntryViewModel entryViewModel;
 
@@ -34,7 +37,10 @@ public class NotesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
 
-        entryTextView = findViewById(R.id.notes_text_view);
+        recyclerView = findViewById(R.id.recycler_view);
+
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(llm);
 
         Intent intent = getIntent();
         Subject subject = (Subject) intent.getParcelableExtra(RecyclerViewAdapter.SUBJECT_ID);
@@ -46,7 +52,8 @@ public class NotesActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<Entry> entries) {
                 if (entries != null && entries.size() > 0) {
-                   entryTextView.setText(entries.get(0).getTitle());
+                    adapter = new EntryRecyclerViewAdapter(entries);
+                    recyclerView.setAdapter(adapter);
                 }
             }
         });
