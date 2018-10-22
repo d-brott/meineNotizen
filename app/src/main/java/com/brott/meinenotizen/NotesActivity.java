@@ -32,6 +32,8 @@ public class NotesActivity extends AppCompatActivity {
 
     private EntryViewModel entryViewModel;
 
+    private Subject subject;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +45,7 @@ public class NotesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(llm);
 
         Intent intent = getIntent();
-        Subject subject = (Subject) intent.getParcelableExtra(RecyclerViewAdapter.SUBJECT_ID);
+        subject = (Subject) intent.getParcelableExtra(RecyclerViewAdapter.SUBJECT_ID);
 
         LOGGER.info("Subject: "+ subject.getId());
 
@@ -70,7 +72,7 @@ public class NotesActivity extends AppCompatActivity {
                     ft.remove(prev);
                 }
                 ft.addToBackStack(null);
-                NewEntryFragment dialogFragment = new NewEntryFragment();
+                NewEntryFragment dialogFragment = NewEntryFragment.newInstance(subject.getId());
                 dialogFragment.show(ft, "entry_dialog");
             }
         });

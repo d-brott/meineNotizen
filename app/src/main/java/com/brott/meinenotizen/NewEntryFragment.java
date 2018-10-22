@@ -26,6 +26,18 @@ public class NewEntryFragment extends DialogFragment {
     private EditText editTextText;
     private Button btnSave;
 
+    private int subjectId;
+
+    public static NewEntryFragment newInstance(int subjectId){
+        NewEntryFragment fragment = new NewEntryFragment();
+
+        Bundle args = new Bundle();
+        args.putInt("subjectId", subjectId);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -35,6 +47,8 @@ public class NewEntryFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        subjectId = getArguments().getInt("subjectId");
     }
 
     @Override
@@ -60,7 +74,7 @@ public class NewEntryFragment extends DialogFragment {
     }
 
     private void writeEntryToDatabase() {
-       Entry entry = new Entry(entryTitle, entryText, 1);
+       Entry entry = new Entry(entryTitle, entryText,  subjectId);
 
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(EntryViewModel.class);
         viewModel.insert(entry);
