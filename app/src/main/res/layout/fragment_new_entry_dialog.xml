@@ -6,20 +6,20 @@
 
     <EditText
         android:id="@+id/edit_text_title"
-        android:hint="Titel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="@string/new_entry_dialog_hint_title" />
 
     <EditText
         android:id="@+id/edit_text_text"
-        android:hint="Text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="@string/new_entry_dialog_hint_text" />
 
     <Button
         android:id="@+id/button_save"
-        android:text="speichern"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/new_entry_dialog_btn_save" />
 
 </LinearLayout>

@@ -46,6 +46,10 @@ public class AppRepository {
         new deleteSubjectAsyncTask(subjectDao).execute(subject);
     }
 
+    public void deleteEntry(Entry entry){
+        new deleteEntryAsyncTask(entryDao).execute(entry);
+    }
+
     private class getEntriesAsyncTask extends AsyncTask<Subject, Void, Void>{
         private EntryDao asyncTaskDao;
 
@@ -66,6 +70,18 @@ public class AppRepository {
         @Override
         protected Void doInBackground(final Subject... params) {
             asyncTaskDao.deleteSubject(params[0].getId());
+            return null;
+        }
+    }
+
+    private static class deleteEntryAsyncTask extends AsyncTask<Entry, Void, Void>{
+        private EntryDao asyncTaskDao;
+
+        deleteEntryAsyncTask(EntryDao dao){asyncTaskDao = dao;}
+
+        @Override
+        protected Void doInBackground(final Entry... params) {
+            asyncTaskDao.delete(params[0]);
             return null;
         }
     }

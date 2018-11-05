@@ -1,14 +1,12 @@
-package com.brott.meinenotizen;
+package com.brott.meinenotizen.subject;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper.Callback;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 
 import static android.support.v7.widget.helper.ItemTouchHelper.*;
 

@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.brott.meinenotizen.R;
 import com.brott.meinenotizen.data.Subject;
@@ -25,7 +24,7 @@ public class NewSubjectFragment extends DialogFragment {
     private EditText editTextName;
     private EditText editTextDescription;
     private Button btnSave;
-
+    private Button btnCancel;
 
     @Override
     public void onStart() {
@@ -44,6 +43,7 @@ public class NewSubjectFragment extends DialogFragment {
 
         editTextName = root.findViewById(R.id.edit_text_name);
         editTextDescription = root.findViewById(R.id.edit_text_description);
+        btnCancel = root.findViewById(R.id.button_cancel);
 
         btnSave = root.findViewById(R.id.button_save);
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +53,13 @@ public class NewSubjectFragment extends DialogFragment {
                 subjectDescription = editTextDescription.getText().toString();
 
                 writeSubjectToDatabase();
+                getDialog().dismiss();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 getDialog().dismiss();
             }
         });

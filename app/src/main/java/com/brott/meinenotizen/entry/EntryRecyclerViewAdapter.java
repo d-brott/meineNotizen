@@ -1,13 +1,15 @@
-package com.brott.meinenotizen;
+package com.brott.meinenotizen.entry;
 
-import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.brott.meinenotizen.R;
+import com.brott.meinenotizen.subject.SubjectRecyclerViewAdapter;
 import com.brott.meinenotizen.data.Entry;
 
 import java.util.List;
@@ -15,12 +17,17 @@ import java.util.logging.Logger;
 
 public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecyclerViewAdapter.EntryViewHolder> {
     public static final String SUBJECT_ID = "com.brott.meinenotizen.SUBJECT_ID";
-    private static final Logger LOGGER = Logger.getLogger(RecyclerViewAdapter.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(SubjectRecyclerViewAdapter.class.getName());
 
     List<Entry> entries;
+    EntryViewModel entryViewModel;
 
-    EntryRecyclerViewAdapter(List<Entry> entries) {
+    SpannableStringBuilder spannableSBuilder;
+    String textStr;
+
+    EntryRecyclerViewAdapter(EntryViewModel entryViewModel, List<Entry> entries) {
         this.entries = entries;
+        this.entryViewModel = entryViewModel;
     }
 
     @Override
@@ -56,6 +63,18 @@ public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecycler
             cardView = itemView.findViewById(R.id.card_view);
             entryTitle = itemView.findViewById(R.id.text_view_title);
             entryText = itemView.findViewById(R.id.text_view_text);
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    entryViewModel.delete(entries.get(getAdapterPosition()));
+                    entries.remove(getAdapterPosition());
+                    notifyItemRemoved(getAdapterPosition());
+                    notifyItemRangeChanged(getAdapterPosition(), getItemCount());
+
+                    return false;
+                }
+            });
         }
     }
 }

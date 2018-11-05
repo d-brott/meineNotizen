@@ -1,4 +1,4 @@
-package com.brott.meinenotizen;
+package com.brott.meinenotizen.subject;
 
 public abstract class SubjectSwipeControllerActions {
 

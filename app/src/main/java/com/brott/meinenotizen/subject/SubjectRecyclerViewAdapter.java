@@ -1,4 +1,4 @@
-package com.brott.meinenotizen;
+package com.brott.meinenotizen.subject;
 
 import android.content.Intent;
 import android.support.v7.widget.CardView;
@@ -8,18 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.brott.meinenotizen.R;
 import com.brott.meinenotizen.data.Subject;
+import com.brott.meinenotizen.entry.EntryActivity;
 
 import java.util.List;
 import java.util.logging.Logger;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.SubjectViewHolder> {
+public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecyclerViewAdapter.SubjectViewHolder> {
     public static final String SUBJECT_ID = "com.brott.meinenotizen.SUBJECT_ID";
-    private static final Logger LOGGER = Logger.getLogger(RecyclerViewAdapter.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(SubjectRecyclerViewAdapter.class.getName());
 
     List<Subject> subjects;
 
-    RecyclerViewAdapter(List<Subject> subjects) {
+    SubjectRecyclerViewAdapter(List<Subject> subjects) {
         this.subjects = subjects;
     }
 
@@ -61,7 +63,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), NotesActivity.class);
+                    Intent intent = new Intent(v.getContext(), EntryActivity.class);
                     intent.putExtra(SUBJECT_ID, subjects.get(getAdapterPosition()));
                     v.getContext().startActivity(intent);
                 }

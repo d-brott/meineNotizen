@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Meine Notizen</string>
+
+    <!-- fragment_new_entry_dialog -->
+    <string name="new_entry_dialog_btn_save">Speichern</string>
+    <string name="new_entry_dialog_hint_title">Titel</string>
+    <string name="new_entry_dialog_hint_text">Text</string>
+
+    <!-- fragment_new_subject_dialog -->
+    <string name="new_subject_dialog_header">Neues Thema</string>
+    <string name="new_subject_dialog_hint_title">Thema</string>
+    <string name="new_subject_dialog_hint_description">Beschreibung (optional)</string>
+    <string name="new_subject_dialog_btn_save">Speichern</string>
+    <string name="new_subject_dialog_btn_cancel">Abbrechen</string>
+
 </resources>

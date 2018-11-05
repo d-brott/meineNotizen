@@ -1,9 +1,8 @@
-package com.brott.meinenotizen;
+package com.brott.meinenotizen.entry;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -13,23 +12,20 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.brott.meinenotizen.R;
+import com.brott.meinenotizen.subject.SubjectRecyclerViewAdapter;
 import com.brott.meinenotizen.data.Entry;
 import com.brott.meinenotizen.data.Subject;
-import com.brott.meinenotizen.subject.NewSubjectFragment;
-import com.brott.meinenotizen.subject.SubjectViewModel;
 
 import java.util.List;
 import java.util.logging.Logger;
 
-public class NotesActivity extends AppCompatActivity {
-    private static final Logger LOGGER = Logger.getLogger(NotesActivity.class.getName());
+public class EntryActivity extends AppCompatActivity {
+    private static final Logger LOGGER = Logger.getLogger(EntryActivity.class.getName());
 
     private RecyclerView recyclerView;
     private EntryRecyclerViewAdapter adapter;
-
     private EntryViewModel entryViewModel;
 
     private Subject subject;
@@ -45,7 +41,7 @@ public class NotesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(llm);
 
         Intent intent = getIntent();
-        subject = (Subject) intent.getParcelableExtra(RecyclerViewAdapter.SUBJECT_ID);
+        subject = intent.getParcelableExtra(SubjectRecyclerViewAdapter.SUBJECT_ID);
 
         LOGGER.info("Subject: "+ subject.getId());
 
@@ -54,7 +50,7 @@ public class NotesActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<Entry> entries) {
                 if (entries != null && entries.size() > 0) {
-                    adapter = new EntryRecyclerViewAdapter(entries);
+                    adapter = new EntryRecyclerViewAdapter(entryViewModel, entries);
                     recyclerView.setAdapter(adapter);
                 }
             }
@@ -76,5 +72,6 @@ public class NotesActivity extends AppCompatActivity {
                 dialogFragment.show(ft, "entry_dialog");
             }
         });
+
     }
 }

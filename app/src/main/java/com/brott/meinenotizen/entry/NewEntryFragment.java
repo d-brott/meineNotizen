@@ -1,4 +1,4 @@
-package com.brott.meinenotizen;
+package com.brott.meinenotizen.entry;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.os.Bundle;
@@ -8,12 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.brott.meinenotizen.R;
 import com.brott.meinenotizen.data.Entry;
-import com.brott.meinenotizen.data.Subject;
-import com.brott.meinenotizen.subject.SubjectViewModel;
 
 public class NewEntryFragment extends DialogFragment {
 

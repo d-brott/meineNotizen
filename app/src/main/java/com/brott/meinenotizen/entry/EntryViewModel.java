@@ -1,4 +1,4 @@
-package com.brott.meinenotizen;
+package com.brott.meinenotizen.entry;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -25,6 +25,10 @@ public class EntryViewModel extends AndroidViewModel {
 
     public void insert(Entry entry){
         appRepository.insert(entry);
+    }
+
+    public void delete(Entry entry){
+        appRepository.deleteEntry(entry);
     }
 
 }

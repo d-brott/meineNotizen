@@ -13,17 +13,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
-import android.widget.TextView;
 
 import com.brott.meinenotizen.data.Subject;
 import com.brott.meinenotizen.subject.NewSubjectFragment;
+import com.brott.meinenotizen.subject.SubjectRecyclerViewAdapter;
+import com.brott.meinenotizen.subject.SubjectSwipeController;
+import com.brott.meinenotizen.subject.SubjectSwipeControllerActions;
 import com.brott.meinenotizen.subject.SubjectViewModel;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private RecyclerViewAdapter adapter;
+    private SubjectRecyclerViewAdapter adapter;
 
     private SubjectViewModel subjectViewModel;
     private List<Subject> allSubjects;
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(@Nullable List<Subject> subjects) {
                 if (subjects != null && subjects.size() > 0) {
                     allSubjects = subjects;
-                    adapter = new RecyclerViewAdapter(subjects);
+                    adapter = new SubjectRecyclerViewAdapter(subjects);
                     recyclerView.setAdapter(adapter);
                 }
             }
