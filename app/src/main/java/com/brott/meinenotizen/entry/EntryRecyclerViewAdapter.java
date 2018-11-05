@@ -10,17 +10,14 @@ import android.widget.TextView;
 
 import com.brott.meinenotizen.R;
 import com.brott.meinenotizen.subject.SubjectRecyclerViewAdapter;
-import com.brott.meinenotizen.data.Entry;
+import com.brott.meinenotizen.database.Entry;
 
 import java.util.List;
 import java.util.logging.Logger;
 
 public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecyclerViewAdapter.EntryViewHolder> {
-    public static final String SUBJECT_ID = "com.brott.meinenotizen.SUBJECT_ID";
-    private static final Logger LOGGER = Logger.getLogger(SubjectRecyclerViewAdapter.class.getName());
-
-    List<Entry> entries;
-    EntryViewModel entryViewModel;
+    private List<Entry> entries;
+    private EntryViewModel entryViewModel;
 
     SpannableStringBuilder spannableSBuilder;
     String textStr;

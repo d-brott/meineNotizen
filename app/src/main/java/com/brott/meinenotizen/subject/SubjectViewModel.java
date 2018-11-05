@@ -4,8 +4,8 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 
-import com.brott.meinenotizen.data.AppRepository;
-import com.brott.meinenotizen.data.Subject;
+import com.brott.meinenotizen.database.AppRepository;
+import com.brott.meinenotizen.database.Subject;
 
 import java.util.List;
 

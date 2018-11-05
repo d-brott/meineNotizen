@@ -1,4 +1,4 @@
-package com.brott.meinenotizen.data;
+package com.brott.meinenotizen.database;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

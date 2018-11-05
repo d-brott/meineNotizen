@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.brott.meinenotizen.R;
-import com.brott.meinenotizen.data.Subject;
+import com.brott.meinenotizen.database.Subject;
 
 public class NewSubjectFragment extends DialogFragment {
     // ViewModel

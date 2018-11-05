@@ -2,7 +2,6 @@ package com.brott.meinenotizen;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
-import android.graphics.Canvas;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
@@ -11,14 +10,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
+
 import android.view.View;
 
-import com.brott.meinenotizen.data.Subject;
+import com.brott.meinenotizen.database.Subject;
 import com.brott.meinenotizen.subject.NewSubjectFragment;
 import com.brott.meinenotizen.subject.SubjectRecyclerViewAdapter;
-import com.brott.meinenotizen.subject.SubjectSwipeController;
-import com.brott.meinenotizen.subject.SubjectSwipeControllerActions;
 import com.brott.meinenotizen.subject.SubjectViewModel;
 
 import java.util.List;
@@ -36,9 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recycler_view);
-
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(llm);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         subjectViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(SubjectViewModel.class);
         subjectViewModel.getAllSubjects().observe(this, new Observer<List<Subject>>() {
@@ -52,32 +47,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final SubjectSwipeController swipeController = new SubjectSwipeController(new SubjectSwipeControllerActions() {
-            @Override
-            public void onLeftClicked(int position) {
-                // super.onLeftClicked(position);
-
-                subjectViewModel.deleteSubject(allSubjects.get(position));
-
-                adapter.notifyItemRemoved(position);
-                adapter.notifyItemRangeChanged(position, adapter.getItemCount());
-            }
-        });
-        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
-        itemTouchhelper.attachToRecyclerView(recyclerView);
-
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-                swipeController.onDraw(c);
-            }
-        });
-
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {

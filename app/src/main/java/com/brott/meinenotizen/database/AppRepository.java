@@ -1,4 +1,4 @@
-package com.brott.meinenotizen.data;
+package com.brott.meinenotizen.database;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;

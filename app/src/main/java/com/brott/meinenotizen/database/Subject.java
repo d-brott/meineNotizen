@@ -1,4 +1,4 @@
-package com.brott.meinenotizen.data;
+package com.brott.meinenotizen.database;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -28,7 +28,6 @@ public class Subject implements Parcelable {
         name = in.readString();
         description = in.readString();
     }
-
 
     @PrimaryKey(autoGenerate = true)
     private int id;

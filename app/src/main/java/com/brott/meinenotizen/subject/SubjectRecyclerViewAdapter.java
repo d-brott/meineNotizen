@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.brott.meinenotizen.R;
-import com.brott.meinenotizen.data.Subject;
+import com.brott.meinenotizen.database.Subject;
 import com.brott.meinenotizen.entry.EntryActivity;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
 
     List<Subject> subjects;
 
-    SubjectRecyclerViewAdapter(List<Subject> subjects) {
+    public SubjectRecyclerViewAdapter(List<Subject> subjects) {
         this.subjects = subjects;
     }
 
