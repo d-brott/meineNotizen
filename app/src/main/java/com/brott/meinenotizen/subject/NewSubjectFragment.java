@@ -13,14 +13,11 @@ import com.brott.meinenotizen.R;
 import com.brott.meinenotizen.database.Subject;
 
 public class NewSubjectFragment extends DialogFragment {
-    // ViewModel
     private SubjectViewModel subjectViewModel;
 
-    // Data
     private String subjectName;
     private String subjectDescription;
 
-    // Layout
     private EditText editTextName;
     private EditText editTextDescription;
     private Button btnSave;
@@ -43,26 +40,18 @@ public class NewSubjectFragment extends DialogFragment {
 
         editTextName = root.findViewById(R.id.edit_text_name);
         editTextDescription = root.findViewById(R.id.edit_text_description);
-        btnCancel = root.findViewById(R.id.button_cancel);
 
         btnSave = root.findViewById(R.id.button_save);
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                subjectName = editTextName.getText().toString();
-                subjectDescription = editTextDescription.getText().toString();
+        btnSave.setOnClickListener(e -> {
+            subjectName = editTextName.getText().toString();
+            subjectDescription = editTextDescription.getText().toString();
 
-                writeSubjectToDatabase();
-                getDialog().dismiss();
-            }
+            writeSubjectToDatabase();
+            getDialog().dismiss();
         });
 
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDialog().dismiss();
-            }
-        });
+        btnCancel = root.findViewById(R.id.button_cancel);
+        btnCancel.setOnClickListener(e -> getDialog().dismiss());
 
         return root;
     }

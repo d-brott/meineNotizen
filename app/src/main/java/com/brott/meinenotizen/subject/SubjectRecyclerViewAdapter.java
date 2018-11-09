@@ -12,14 +12,14 @@ import com.brott.meinenotizen.R;
 import com.brott.meinenotizen.database.Subject;
 import com.brott.meinenotizen.entry.EntryActivity;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
-import java.util.logging.Logger;
 
 public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecyclerViewAdapter.SubjectViewHolder> {
     public static final String SUBJECT_ID = "com.brott.meinenotizen.SUBJECT_ID";
-    private static final Logger LOGGER = Logger.getLogger(SubjectRecyclerViewAdapter.class.getName());
 
-    List<Subject> subjects;
+    private List<Subject> subjects;
 
     public SubjectRecyclerViewAdapter(List<Subject> subjects) {
         this.subjects = subjects;
@@ -44,10 +44,20 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
 
     @Override
     public void onBindViewHolder(SubjectViewHolder subjectViewHolder, int i) {
-        subjectViewHolder.subjectName.setText(subjects.get(i).getName());
-        subjectViewHolder.subjectDescription.setText(subjects.get(i).getDescription());
-    }
+        String name = subjects.get(i).getName();
+        String description = subjects.get(i).getDescription();
 
+        if (StringUtils.isNotBlank(name)) {
+            subjectViewHolder.subjectName.setText(name);
+        }
+
+        if (StringUtils.isNotBlank(description)) {
+            subjectViewHolder.subjectDescription.setVisibility(View.VISIBLE);
+            subjectViewHolder.subjectDescription.setText(subjects.get(i).getDescription());
+        } else {
+            subjectViewHolder.subjectDescription.setVisibility(View.GONE);
+        }
+    }
 
     public class SubjectViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
@@ -60,13 +70,10 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
             subjectName = itemView.findViewById(R.id.text_view_name);
             subjectDescription = itemView.findViewById(R.id.text_view_description);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), EntryActivity.class);
-                    intent.putExtra(SUBJECT_ID, subjects.get(getAdapterPosition()));
-                    v.getContext().startActivity(intent);
-                }
+            itemView.setOnClickListener(view -> {
+                Intent intent = new Intent(view.getContext(), EntryActivity.class);
+                intent.putExtra(SUBJECT_ID, subjects.get(getAdapterPosition()));
+                view.getContext().startActivity(intent);
             });
         }
     }

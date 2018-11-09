@@ -1,6 +1,5 @@
 package com.brott.meinenotizen.entry;
 
-import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
@@ -13,11 +12,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.brott.meinenotizen.R;
-import com.brott.meinenotizen.subject.SubjectRecyclerViewAdapter;
 import com.brott.meinenotizen.database.Entry;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecyclerViewAdapter.EntryViewHolder> {
     private List<Entry> entries;
@@ -42,28 +39,28 @@ public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecycler
 
     @Override
     public void onBindViewHolder(EntryViewHolder holder, int position) {
-        String text = entries.get(position).getText();
-        if (text.contains("\n")) {
-            String arr[] = text.split("\n");
+        holder.entryTitle.setText(entries.get(position).getTitle());
 
-            SpannableStringBuilder ssb = new SpannableStringBuilder();
-            for (int i = 0; i < arr.length; i++) {
-                String line = arr[i];
-                SpannableString sString = new SpannableString(line);
-                sString.setSpan(new BulletSpan(5), 0, line.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                ssb.append(sString);
+        String entryText = entries.get(position).getText();
+        if (entryText.contains("\n")) {
+            String bulletPoints[] = entryText.split("\n");
+            SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
 
-                if (i + 1 < arr.length) {
-                    ssb.append("\n");
+            for (int i = 0; i < bulletPoints.length; i++) {
+                String line = bulletPoints[i];
+                SpannableString spannableString = new SpannableString(line);
+                spannableString.setSpan(new BulletSpan(10), 0, line.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                spannableStringBuilder.append(spannableString);
+
+               if (i + 1 < bulletPoints.length) {
+                    spannableStringBuilder.append("\n");
                 }
             }
-            holder.entryText.setText(ssb);
 
+            holder.entryText.setText(spannableStringBuilder);
         } else {
-            holder.entryText.setText(text);
+            holder.entryText.setText(entryText);
         }
-
-        holder.entryTitle.setText(entries.get(position).getTitle());
     }
 
     @Override
