@@ -1,8 +1,12 @@
 package com.brott.meinenotizen.entry;
 
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.BulletSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +22,6 @@ import java.util.logging.Logger;
 public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecyclerViewAdapter.EntryViewHolder> {
     private List<Entry> entries;
     private EntryViewModel entryViewModel;
-
-    SpannableStringBuilder spannableSBuilder;
-    String textStr;
 
     EntryRecyclerViewAdapter(EntryViewModel entryViewModel, List<Entry> entries) {
         this.entries = entries;
@@ -41,8 +42,28 @@ public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecycler
 
     @Override
     public void onBindViewHolder(EntryViewHolder holder, int position) {
+        String text = entries.get(position).getText();
+        if (text.contains("\n")) {
+            String arr[] = text.split("\n");
+
+            SpannableStringBuilder ssb = new SpannableStringBuilder();
+            for (int i = 0; i < arr.length; i++) {
+                String line = arr[i];
+                SpannableString sString = new SpannableString(line);
+                sString.setSpan(new BulletSpan(5), 0, line.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ssb.append(sString);
+
+                if (i + 1 < arr.length) {
+                    ssb.append("\n");
+                }
+            }
+            holder.entryText.setText(ssb);
+
+        } else {
+            holder.entryText.setText(text);
+        }
+
         holder.entryTitle.setText(entries.get(position).getTitle());
-        holder.entryText.setText(entries.get(position).getText());
     }
 
     @Override
