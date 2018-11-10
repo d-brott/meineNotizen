@@ -22,10 +22,11 @@ public class NewEntryFragment extends DialogFragment {
     private EditText editTextTitle;
     private EditText editTextText;
     private Button btnSave;
+    private Button btnCancel;
 
     private int subjectId;
 
-    public static NewEntryFragment newInstance(int subjectId){
+    public static NewEntryFragment newInstance(int subjectId) {
         NewEntryFragment fragment = new NewEntryFragment();
 
         Bundle args = new Bundle();
@@ -56,22 +57,22 @@ public class NewEntryFragment extends DialogFragment {
         editTextText = root.findViewById(R.id.edit_text_text);
 
         btnSave = root.findViewById(R.id.button_save);
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                entryTitle = editTextTitle.getText().toString();
-                entryText = editTextText.getText().toString();
+        btnSave.setOnClickListener(view -> {
+            entryTitle = editTextTitle.getText().toString();
+            entryText = editTextText.getText().toString();
 
-                writeEntryToDatabase();
-                getDialog().dismiss();
-            }
+            writeEntryToDatabase();
+            getDialog().dismiss();
         });
+
+        btnCancel = root.findViewById(R.id.button_cancel);
+        btnCancel.setOnClickListener(e -> getDialog().dismiss());
 
         return root;
     }
 
     private void writeEntryToDatabase() {
-       Entry entry = new Entry(entryTitle, entryText,  subjectId);
+        Entry entry = new Entry(entryTitle, entryText, subjectId);
 
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(EntryViewModel.class);
         viewModel.insert(entry);

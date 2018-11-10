@@ -2,6 +2,7 @@
     <string name="app_name">Meine Notizen</string>
 
     <!-- fragment_new_entry_dialog -->
+    <string name="new_entry_dialog_header">Neuer Eintrag</string>
     <string name="new_entry_dialog_btn_save">Speichern</string>
     <string name="new_entry_dialog_hint_title">Titel</string>
     <string name="new_entry_dialog_hint_text">Text</string>
@@ -12,5 +13,10 @@
     <string name="new_subject_dialog_hint_description">Beschreibung (optional)</string>
     <string name="new_subject_dialog_btn_save">Speichern</string>
     <string name="new_subject_dialog_btn_cancel">Abbrechen</string>
+
+    <!-- EntryRecyclerViewAdapter -->
+    <string name="dialog_delete_entry">Eintrag löschen?</string>
+    <string name="dialog_delete_entry_delete">Löschen</string>
+    <string name="dialog_delete_entry_cancel">Abbrechen</string>
 
 </resources>

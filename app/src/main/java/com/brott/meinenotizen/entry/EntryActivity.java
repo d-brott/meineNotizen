@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ActivityChooserView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -40,13 +41,10 @@ public class EntryActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         entryViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(EntryViewModel.class);
-        entryViewModel.getAllEntries(subject).observe(this, new Observer<List<Entry>>() {
-            @Override
-            public void onChanged(@Nullable List<Entry> entries) {
-                if (entries != null && entries.size() > 0) {
-                    recyclerViewAdapter = new EntryRecyclerViewAdapter(entryViewModel, entries);
-                    recyclerView.setAdapter(recyclerViewAdapter);
-                }
+        entryViewModel.getAllEntries(subject).observe(this, entries -> {
+            if (entries != null && entries.size() > 0) {
+                recyclerViewAdapter = new EntryRecyclerViewAdapter(entryViewModel, entries, EntryActivity.this);
+                recyclerView.setAdapter(recyclerViewAdapter);
             }
         });
 

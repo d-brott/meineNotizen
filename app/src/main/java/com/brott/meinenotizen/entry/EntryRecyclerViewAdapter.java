@@ -1,5 +1,9 @@
 package com.brott.meinenotizen.entry;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
@@ -19,8 +23,9 @@ import java.util.List;
 public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecyclerViewAdapter.EntryViewHolder> {
     private List<Entry> entries;
     private EntryViewModel entryViewModel;
+    private Activity context;
 
-    EntryRecyclerViewAdapter(EntryViewModel entryViewModel, List<Entry> entries) {
+    EntryRecyclerViewAdapter(EntryViewModel entryViewModel, List<Entry> entries, Activity context) {
         this.entries = entries;
         this.entryViewModel = entryViewModel;
     }
@@ -52,7 +57,7 @@ public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecycler
                 spannableString.setSpan(new BulletSpan(10), 0, line.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 spannableStringBuilder.append(spannableString);
 
-               if (i + 1 < bulletPoints.length) {
+                if (i + 1 < bulletPoints.length) {
                     spannableStringBuilder.append("\n");
                 }
             }
@@ -79,16 +84,23 @@ public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecycler
             entryTitle = itemView.findViewById(R.id.text_view_title);
             entryText = itemView.findViewById(R.id.text_view_text);
 
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
+            itemView.setOnLongClickListener(view -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setMessage(R.string.dialog_delete_entry);
+
+                builder.setNegativeButton(R.string.dialog_delete_entry_cancel, (dialog, id) -> dialog.dismiss());
+
+                builder.setPositiveButton(R.string.dialog_delete_entry_delete, (dialog, id) -> {
                     entryViewModel.delete(entries.get(getAdapterPosition()));
                     entries.remove(getAdapterPosition());
                     notifyItemRemoved(getAdapterPosition());
                     notifyItemRangeChanged(getAdapterPosition(), getItemCount());
+                });
 
-                    return false;
-                }
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+                return false;
             });
         }
     }

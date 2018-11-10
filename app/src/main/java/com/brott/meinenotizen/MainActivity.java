@@ -36,30 +36,24 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         subjectViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(SubjectViewModel.class);
-        subjectViewModel.getAllSubjects().observe(this, new Observer<List<Subject>>() {
-            @Override
-            public void onChanged(@Nullable List<Subject> subjects) {
-                if (subjects != null && subjects.size() > 0) {
-                    allSubjects = subjects;
-                    adapter = new SubjectRecyclerViewAdapter(subjects);
-                    recyclerView.setAdapter(adapter);
-                }
+        subjectViewModel.getAllSubjects().observe(this, subjects -> {
+            if (subjects != null && subjects.size() > 0) {
+                allSubjects = subjects;
+                adapter = new SubjectRecyclerViewAdapter(subjects);
+                recyclerView.setAdapter(adapter);
             }
         });
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.addToBackStack(null);
-                NewSubjectFragment dialogFragment = new NewSubjectFragment();
-                dialogFragment.show(ft, "dialog");
+        fab.setOnClickListener(view -> {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+            if (prev != null) {
+                ft.remove(prev);
             }
+            ft.addToBackStack(null);
+            NewSubjectFragment dialogFragment = new NewSubjectFragment();
+            dialogFragment.show(ft, "dialog");
         });
     }
 }

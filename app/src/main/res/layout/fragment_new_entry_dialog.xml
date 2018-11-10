@@ -2,7 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:text="@string/new_entry_dialog_header"
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/edit_text_title"
@@ -16,10 +25,25 @@
         android:layout_height="wrap_content"
         android:hint="@string/new_entry_dialog_hint_text" />
 
-    <Button
-        android:id="@+id/button_save"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/new_entry_dialog_btn_save" />
+        android:layout_gravity="right"
+        android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/button_cancel"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_subject_dialog_btn_cancel" />
+
+        <Button
+            android:id="@+id/button_save"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_subject_dialog_btn_save" />
+
+    </LinearLayout>
 </LinearLayout>
