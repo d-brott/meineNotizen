@@ -2,10 +2,8 @@ package com.brott.meinenotizen.entry;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -38,8 +36,7 @@ public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecycler
     @Override
     public EntryViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.entry_card_view, viewGroup, false);
-        EntryViewHolder svh = new EntryViewHolder(view);
-        return svh;
+        return new EntryViewHolder(view);
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.brott.meinenotizen.entry;
 
-import android.arch.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +14,11 @@ import com.brott.meinenotizen.database.Entry;
 
 public class NewEntryFragment extends DialogFragment {
 
-    private EntryViewModel viewModel;
-
     private String entryTitle;
     private String entryText;
 
     private EditText editTextTitle;
     private EditText editTextText;
-    private Button btnSave;
-    private Button btnCancel;
 
     private int subjectId;
 
@@ -56,7 +52,7 @@ public class NewEntryFragment extends DialogFragment {
         editTextTitle = root.findViewById(R.id.edit_text_title);
         editTextText = root.findViewById(R.id.edit_text_text);
 
-        btnSave = root.findViewById(R.id.button_save);
+        Button btnSave = root.findViewById(R.id.button_save);
         btnSave.setOnClickListener(view -> {
             entryTitle = editTextTitle.getText().toString();
             entryText = editTextText.getText().toString();
@@ -65,7 +61,7 @@ public class NewEntryFragment extends DialogFragment {
             getDialog().dismiss();
         });
 
-        btnCancel = root.findViewById(R.id.button_cancel);
+        Button btnCancel = root.findViewById(R.id.button_cancel);
         btnCancel.setOnClickListener(e -> getDialog().dismiss());
 
         return root;
@@ -74,7 +70,7 @@ public class NewEntryFragment extends DialogFragment {
     private void writeEntryToDatabase() {
         Entry entry = new Entry(entryTitle, entryText, subjectId);
 
-        viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(EntryViewModel.class);
+        EntryViewModel viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(EntryViewModel.class);
         viewModel.insert(entry);
     }
 }

@@ -1,8 +1,8 @@
 package com.brott.meinenotizen.subject;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.brott.meinenotizen.database.AppRepository;
 import com.brott.meinenotizen.database.Subject;

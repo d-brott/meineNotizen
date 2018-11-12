@@ -1,8 +1,8 @@
 package com.brott.meinenotizen.entry;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.brott.meinenotizen.database.AppRepository;
 import com.brott.meinenotizen.database.Entry;
@@ -10,7 +10,7 @@ import com.brott.meinenotizen.database.Subject;
 
 import java.util.List;
 
-public class EntryViewModel extends AndroidViewModel {
+class EntryViewModel extends AndroidViewModel {
     private AppRepository appRepository;
 
     public EntryViewModel(Application application) {

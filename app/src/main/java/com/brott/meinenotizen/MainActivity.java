@@ -1,17 +1,13 @@
 package com.brott.meinenotizen;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.design.widget.FloatingActionButton;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.fragment.app.Fragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-
-import android.view.View;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.brott.meinenotizen.database.Subject;
 import com.brott.meinenotizen.subject.NewSubjectFragment;
@@ -24,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private SubjectRecyclerViewAdapter adapter;
 
-    private SubjectViewModel subjectViewModel;
     private List<Subject> allSubjects;
 
     @Override
@@ -35,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        subjectViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(SubjectViewModel.class);
+        SubjectViewModel subjectViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(SubjectViewModel.class);
         subjectViewModel.getAllSubjects().observe(this, subjects -> {
             if (subjects != null && subjects.size() > 0) {
                 allSubjects = subjects;

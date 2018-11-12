@@ -1,8 +1,8 @@
 package com.brott.meinenotizen.subject;
 
 import android.content.Intent;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +33,7 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
     @Override
     public SubjectViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cards_layout, viewGroup, false);
-        SubjectViewHolder svh = new SubjectViewHolder(view);
-        return svh;
+        return new SubjectViewHolder(view);
     }
 
     @Override

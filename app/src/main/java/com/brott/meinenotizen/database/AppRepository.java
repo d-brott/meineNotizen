@@ -1,7 +1,7 @@
 package com.brott.meinenotizen.database;
 
 import android.app.Application;
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.LiveData;
 import android.os.AsyncTask;
 
 import java.util.List;
@@ -12,7 +12,7 @@ public class AppRepository {
     private EntryDao entryDao;
 
     private LiveData<List<Subject>> allSubjects;
-    private LiveData<List<Entry>> entries;
+    private static LiveData<List<Entry>> entries;
 
     public AppRepository(Application application) {
         AppRoomDatabase db = AppRoomDatabase.getDatabase(application);
@@ -50,7 +50,7 @@ public class AppRepository {
         new deleteEntryAsyncTask(entryDao).execute(entry);
     }
 
-    private class getEntriesAsyncTask extends AsyncTask<Subject, Void, Void>{
+    private static class getEntriesAsyncTask extends AsyncTask<Subject, Void, Void>{
         private EntryDao asyncTaskDao;
 
         getEntriesAsyncTask(EntryDao dao){asyncTaskDao = dao;}

@@ -1,8 +1,8 @@
 package com.brott.meinenotizen.subject;
 
-import android.arch.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +13,12 @@ import com.brott.meinenotizen.R;
 import com.brott.meinenotizen.database.Subject;
 
 public class NewSubjectFragment extends DialogFragment {
-    private SubjectViewModel subjectViewModel;
 
     private String subjectName;
     private String subjectDescription;
 
     private EditText editTextName;
     private EditText editTextDescription;
-    private Button btnSave;
-    private Button btnCancel;
 
     @Override
     public void onStart() {
@@ -41,7 +38,7 @@ public class NewSubjectFragment extends DialogFragment {
         editTextName = root.findViewById(R.id.edit_text_name);
         editTextDescription = root.findViewById(R.id.edit_text_description);
 
-        btnSave = root.findViewById(R.id.button_save);
+        Button btnSave = root.findViewById(R.id.button_save);
         btnSave.setOnClickListener(e -> {
             subjectName = editTextName.getText().toString();
             subjectDescription = editTextDescription.getText().toString();
@@ -50,7 +47,7 @@ public class NewSubjectFragment extends DialogFragment {
             getDialog().dismiss();
         });
 
-        btnCancel = root.findViewById(R.id.button_cancel);
+        Button btnCancel = root.findViewById(R.id.button_cancel);
         btnCancel.setOnClickListener(e -> getDialog().dismiss());
 
         return root;
@@ -59,7 +56,7 @@ public class NewSubjectFragment extends DialogFragment {
     private void writeSubjectToDatabase() {
         Subject subject = new Subject(subjectName, subjectDescription);
 
-        subjectViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(SubjectViewModel.class);
+        SubjectViewModel subjectViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(SubjectViewModel.class);
         subjectViewModel.insert(subject);
     }
 }
