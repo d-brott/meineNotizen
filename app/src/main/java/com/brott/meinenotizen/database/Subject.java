@@ -26,7 +26,7 @@ public class Subject implements Parcelable {
     private Subject(Parcel in){
         id = in.readInt();
         name = in.readString();
-        description = in.readString();
+        date = in.readString();
     }
 
     @PrimaryKey(autoGenerate = true)
@@ -36,12 +36,12 @@ public class Subject implements Parcelable {
     @ColumnInfo(name = "name")
     private String name;
 
-    @ColumnInfo(name = "description")
-    private String description;
+    @ColumnInfo(name = "date")
+    private String date;
 
-    public Subject(@NonNull String name, String description) {
+    public Subject(@NonNull String name, String date) {
         this.name = name;
-        this.description = description;
+        this.date = date;
     }
 
     @NonNull
@@ -53,8 +53,8 @@ public class Subject implements Parcelable {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDate() {
+        return date;
     }
 
     public void setId(@NonNull int id) {
@@ -65,8 +65,8 @@ public class Subject implements Parcelable {
         this.name = name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     @Override
@@ -78,6 +78,6 @@ public class Subject implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(name);
-        dest.writeString(description);
+        dest.writeString(date);
     }
 }

@@ -1,8 +1,6 @@
 package com.brott.meinenotizen.subject;
 
-import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
-import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +10,21 @@ import android.widget.EditText;
 import com.brott.meinenotizen.R;
 import com.brott.meinenotizen.database.Subject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
+
 public class NewSubjectFragment extends DialogFragment {
 
+    private static final DateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+
     private String subjectName;
-    private String subjectDescription;
+    private String subjectDate;
 
     private EditText editTextName;
-    private EditText editTextDescription;
 
     @Override
     public void onStart() {
@@ -36,12 +42,11 @@ public class NewSubjectFragment extends DialogFragment {
         View root = inflater.inflate(R.layout.fragment_new_subject_dialog, container, false);
 
         editTextName = root.findViewById(R.id.edit_text_name);
-        editTextDescription = root.findViewById(R.id.edit_text_description);
 
         Button btnSave = root.findViewById(R.id.button_save);
         btnSave.setOnClickListener(e -> {
             subjectName = editTextName.getText().toString();
-            subjectDescription = editTextDescription.getText().toString();
+            subjectDate = sdf.format(new Date());
 
             writeSubjectToDatabase();
             getDialog().dismiss();
@@ -54,7 +59,7 @@ public class NewSubjectFragment extends DialogFragment {
     }
 
     private void writeSubjectToDatabase() {
-        Subject subject = new Subject(subjectName, subjectDescription);
+        Subject subject = new Subject(subjectName, subjectDate);
 
         SubjectViewModel subjectViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(SubjectViewModel.class);
         subjectViewModel.insert(subject);

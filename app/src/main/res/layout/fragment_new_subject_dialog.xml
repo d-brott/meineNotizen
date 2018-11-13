@@ -8,9 +8,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
         android:text="@string/new_subject_dialog_header"
         android:textSize="16sp" />
 
@@ -19,12 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/new_subject_dialog_hint_title" />
-
-    <EditText
-        android:id="@+id/edit_text_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/new_entry_dialog_hint_text" />
 
     <LinearLayout
         android:layout_width="wrap_content"

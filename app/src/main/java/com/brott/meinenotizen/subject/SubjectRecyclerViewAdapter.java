@@ -1,8 +1,6 @@
 package com.brott.meinenotizen.subject;
 
 import android.content.Intent;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +14,14 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecyclerViewAdapter.SubjectViewHolder> {
     public static final String SUBJECT_ID = "com.brott.meinenotizen.SUBJECT_ID";
 
     private List<Subject> subjects;
+    private View view;
 
     public SubjectRecyclerViewAdapter(List<Subject> subjects) {
         this.subjects = subjects;
@@ -32,7 +34,8 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
 
     @Override
     public SubjectViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cards_layout, viewGroup, false);
+        view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cards_layout, viewGroup, false);
+
         return new SubjectViewHolder(view);
     }
 
@@ -44,30 +47,27 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
     @Override
     public void onBindViewHolder(SubjectViewHolder subjectViewHolder, int i) {
         String name = subjects.get(i).getName();
-        String description = subjects.get(i).getDescription();
+        String date = String.format("%s %s", view.getResources().getString(R.string.subject_last_change), subjects.get(i).getDate());
 
         if (StringUtils.isNotBlank(name)) {
             subjectViewHolder.subjectName.setText(name);
         }
 
-        if (StringUtils.isNotBlank(description)) {
-            subjectViewHolder.subjectDescription.setVisibility(View.VISIBLE);
-            subjectViewHolder.subjectDescription.setText(subjects.get(i).getDescription());
-        } else {
-            subjectViewHolder.subjectDescription.setVisibility(View.GONE);
+        if (StringUtils.isNotBlank(date)) {
+            subjectViewHolder.subjectDate.setText(date);
         }
     }
 
     public class SubjectViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView subjectName;
-        TextView subjectDescription;
+        TextView subjectDate;
 
         SubjectViewHolder(View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.card_view);
             subjectName = itemView.findViewById(R.id.text_view_name);
-            subjectDescription = itemView.findViewById(R.id.text_view_description);
+            subjectDate = itemView.findViewById(R.id.text_view_date);
 
             itemView.setOnClickListener(view -> {
                 Intent intent = new Intent(view.getContext(), EntryActivity.class);
