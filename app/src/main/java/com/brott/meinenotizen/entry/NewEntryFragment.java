@@ -1,8 +1,6 @@
 package com.brott.meinenotizen.entry;
 
-import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
-import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,23 +8,28 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.brott.meinenotizen.R;
+import com.brott.meinenotizen.Utilities;
 import com.brott.meinenotizen.database.Entry;
+import com.brott.meinenotizen.database.Subject;
+import com.brott.meinenotizen.subject.SubjectViewModel;
+
+import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 
 public class NewEntryFragment extends DialogFragment {
-
     private String entryTitle;
     private String entryText;
 
     private EditText editTextTitle;
     private EditText editTextText;
 
-    private int subjectId;
+    private Subject subject;
 
-    public static NewEntryFragment newInstance(int subjectId) {
+    public static NewEntryFragment newInstance(Subject subject) {
         NewEntryFragment fragment = new NewEntryFragment();
 
         Bundle args = new Bundle();
-        args.putInt("subjectId", subjectId);
+        args.putParcelable("subjectId", subject);
         fragment.setArguments(args);
 
         return fragment;
@@ -42,7 +45,7 @@ public class NewEntryFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        subjectId = getArguments().getInt("subjectId");
+        subject = getArguments().getParcelable("subjectId");
     }
 
     @Override
@@ -54,11 +57,22 @@ public class NewEntryFragment extends DialogFragment {
 
         Button btnSave = root.findViewById(R.id.button_save);
         btnSave.setOnClickListener(view -> {
-            entryTitle = editTextTitle.getText().toString();
-            entryText = editTextText.getText().toString();
 
-            writeEntryToDatabase();
-            getDialog().dismiss();
+            if (Utilities.isEmpty(editTextTitle)) {
+                editTextTitle.setError(getResources().getString(R.string.dialog_input_error));
+                return;
+
+            } else if (Utilities.isEmpty(editTextText)) {
+                editTextText.setError(getResources().getString(R.string.dialog_input_error));
+                return;
+
+            } else {
+                entryTitle = editTextTitle.getText().toString();
+                entryText = editTextText.getText().toString();
+
+                writeEntryToDatabase();
+                getDialog().dismiss();
+            }
         });
 
         Button btnCancel = root.findViewById(R.id.button_cancel);
@@ -68,10 +82,14 @@ public class NewEntryFragment extends DialogFragment {
     }
 
     private void writeEntryToDatabase() {
-        Entry entry = new Entry(entryTitle, entryText, subjectId);
+        Entry entry = new Entry(entryTitle, entryText, subject.getId());
 
         EntryViewModel viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(EntryViewModel.class);
         viewModel.insert(entry);
+
+        subject.setDate(Utilities.getCurrentDate());
+        SubjectViewModel sViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(SubjectViewModel.class);
+        sViewModel.update(subject);
     }
 }
 

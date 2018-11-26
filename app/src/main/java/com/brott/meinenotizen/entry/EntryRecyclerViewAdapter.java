@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -95,8 +97,13 @@ public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecycler
                 });
 
                 AlertDialog alertDialog = builder.create();
-                alertDialog.show();
 
+                alertDialog.setOnShowListener(e -> {
+                    alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.WHITE);
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
+                });
+
+                alertDialog.show();
                 return false;
             });
         }

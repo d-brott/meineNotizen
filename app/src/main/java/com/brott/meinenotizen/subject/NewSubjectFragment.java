@@ -8,19 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.brott.meinenotizen.R;
+import com.brott.meinenotizen.Utilities;
 import com.brott.meinenotizen.database.Subject;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
 public class NewSubjectFragment extends DialogFragment {
-
-    private static final DateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-
     private String subjectName;
     private String subjectDate;
 
@@ -45,11 +39,17 @@ public class NewSubjectFragment extends DialogFragment {
 
         Button btnSave = root.findViewById(R.id.button_save);
         btnSave.setOnClickListener(e -> {
-            subjectName = editTextName.getText().toString();
-            subjectDate = sdf.format(new Date());
+            if (Utilities.isEmpty(editTextName)) {
+                editTextName.setError(getResources().getString(R.string.dialog_input_error));
+                return;
 
-            writeSubjectToDatabase();
-            getDialog().dismiss();
+            } else {
+                subjectName = editTextName.getText().toString();
+                subjectDate = Utilities.getCurrentDate();
+
+                writeSubjectToDatabase();
+                getDialog().dismiss();
+            }
         });
 
         Button btnCancel = root.findViewById(R.id.button_cancel);

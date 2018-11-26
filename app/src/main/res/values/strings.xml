@@ -8,8 +8,7 @@
     <string name="new_entry_dialog_hint_text">Text</string>
 
     <!-- fragment_new_subject_dialog -->
-    <string name="new_subject_dialog_header">Neue Kategorie</string>
-    <string name="new_subject_dialog_hint_title">Kategorie</string>
+    <string name="new_subject_dialog_hint_title">Neue Kategorie</string>
     <string name="new_subject_dialog_hint_description">Beschreibung (optional)</string>
     <string name="new_subject_dialog_btn_save">Speichern</string>
     <string name="new_subject_dialog_btn_cancel">Abbrechen</string>
@@ -21,5 +20,8 @@
 
     <!-- SubjectRecyclerViewAdapter -->
     <string name="subject_last_change">Zuletzt geändert am</string>
+
+    <!-- Dialoge -->
+    <string name="dialog_input_error">Ungültige Eingabe</string>
 
 </resources>

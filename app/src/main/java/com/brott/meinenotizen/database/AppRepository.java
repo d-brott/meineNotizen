@@ -42,6 +42,8 @@ public class AppRepository {
         new insertAsyncTask(subjectDao).execute(subject);
     }
 
+    public void updateSubject(Subject subject) {new updateAsyncTask(subjectDao).execute(subject);}
+
     public void deleteSubject(Subject subject) {
         new deleteSubjectAsyncTask(subjectDao).execute(subject);
     }
@@ -97,6 +99,21 @@ public class AppRepository {
         @Override
         protected Void doInBackground(final Subject... params) {
             asyncTaskDao.insert(params[0]);
+            return null;
+        }
+    }
+
+    private static class updateAsyncTask extends AsyncTask<Subject, Void, Void> {
+
+        private SubjectDao asyncTaskDao;
+
+        updateAsyncTask(SubjectDao dao){
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Subject... params){
+            asyncTaskDao.updateSubject(params[0]);
             return null;
         }
     }

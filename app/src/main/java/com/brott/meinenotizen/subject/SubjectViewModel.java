@@ -29,6 +29,8 @@ public class SubjectViewModel extends AndroidViewModel {
         appRepository.insert(subject);
     }
 
+    public void update(Subject subject) {appRepository.updateSubject(subject);}
+
     public void deleteSubject(Subject subject){
         appRepository.deleteSubject(subject);
     }

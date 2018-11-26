@@ -1,18 +1,20 @@
 package com.brott.meinenotizen.entry;
 
-import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.brott.meinenotizen.R;
 import com.brott.meinenotizen.database.Subject;
 import com.brott.meinenotizen.subject.SubjectRecyclerViewAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class EntryActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -24,6 +26,9 @@ public class EntryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.entry_toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
+        setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
         subject = intent.getParcelableExtra(SubjectRecyclerViewAdapter.SUBJECT_ID);
@@ -51,7 +56,8 @@ public class EntryActivity extends AppCompatActivity {
             }
 
             ft.addToBackStack(null);
-            NewEntryFragment dialogFragment = NewEntryFragment.newInstance(subject.getId());
+            // NewEntryFragment dialogFragment = NewEntryFragment.newInstance(subject.getId());
+            NewEntryFragment dialogFragment = NewEntryFragment.newInstance(subject);
             dialogFragment.show(ft, "entry_dialog");
         });
     }
