@@ -1,9 +1,12 @@
 package com.brott.meinenotizen.subject;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.brott.meinenotizen.R;
@@ -22,9 +25,11 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
 
     private List<Subject> subjects;
     private View view;
+    private SubjectViewModel subjectViewModel;
 
-    public SubjectRecyclerViewAdapter(List<Subject> subjects) {
+    public SubjectRecyclerViewAdapter(SubjectViewModel subjectViewModel, List<Subject> subjects) {
         this.subjects = subjects;
+        this.subjectViewModel = subjectViewModel;
     }
 
     @Override
@@ -68,6 +73,37 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
             cardView = itemView.findViewById(R.id.card_view);
             subjectName = itemView.findViewById(R.id.text_view_name);
             subjectDate = itemView.findViewById(R.id.text_view_date);
+
+            cardView.setOnLongClickListener(view -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setMessage(R.string.dialog_delete_subject);
+
+                builder.setNegativeButton(R.string.dialog_delete_entry_cancel, (dialog, id) -> dialog.dismiss());
+
+                builder.setPositiveButton(R.string.dialog_delete_entry_delete, (dialog, id) -> {
+                    subjectViewModel.deleteSubject(subjects.get(getAdapterPosition()));
+                    subjects.remove(getAdapterPosition());
+                    notifyItemRemoved(getAdapterPosition());
+                    notifyItemRangeChanged(getAdapterPosition(), getItemCount());
+                });
+
+                AlertDialog alertDialog = builder.create();
+
+                alertDialog.setOnShowListener(e -> {
+                    alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.WHITE);
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
+
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    params.setMarginEnd(5);
+                    alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setLayoutParams(params);
+                });
+
+                alertDialog.show();
+                return false;
+            });
 
             itemView.setOnClickListener(view -> {
                 Intent intent = new Intent(view.getContext(), EntryActivity.class);

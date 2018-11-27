@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         subjectViewModel.getAllSubjects().observe(this, subjects -> {
             if (subjects != null && subjects.size() > 0) {
                 allSubjects = subjects;
-                adapter = new SubjectRecyclerViewAdapter(subjects);
+                adapter = new SubjectRecyclerViewAdapter(subjectViewModel, subjects);
                 recyclerView.setAdapter(adapter);
             }
         });

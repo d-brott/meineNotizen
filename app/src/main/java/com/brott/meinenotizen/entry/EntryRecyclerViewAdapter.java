@@ -83,7 +83,10 @@ public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecycler
             entryTitle = itemView.findViewById(R.id.text_view_title);
             entryText = itemView.findViewById(R.id.text_view_text);
 
-            itemView.setOnLongClickListener(view -> {
+            entryTitle.setLongClickable(false);
+            entryText.setLongClickable(false);
+
+            cardView.setOnLongClickListener(view -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setMessage(R.string.dialog_delete_entry);
 

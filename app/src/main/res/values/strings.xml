@@ -20,6 +20,7 @@
 
     <!-- SubjectRecyclerViewAdapter -->
     <string name="subject_last_change">Zuletzt geändert am</string>
+    <string name="dialog_delete_subject">Kategorie und untergeordnete Einträge löschen?</string>
 
     <!-- Dialoge -->
     <string name="dialog_input_error">Ungültige Eingabe</string>
