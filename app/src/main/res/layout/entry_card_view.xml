@@ -23,7 +23,8 @@
             android:layout_height="wrap_content"
             android:textIsSelectable="false"
             android:layout_marginBottom="5dp"
-            android:textSize="18sp" />
+            android:fontFamily="sans-serif"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/text_view_text"
@@ -31,7 +32,8 @@
             android:layout_height="wrap_content"
             android:textIsSelectable="false"
             android:inputType="textMultiLine"
-            android:textSize="15sp" />
+            android:fontFamily="sans-serif"
+            android:textSize="16sp" />
 
     </LinearLayout>
 

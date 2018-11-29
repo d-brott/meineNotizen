@@ -58,7 +58,7 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
             subjectViewHolder.subjectName.setText(name);
         }
 
-        if (StringUtils.isNotBlank(date)) {
+        if (StringUtils.isNotBlank(date))  {
             subjectViewHolder.subjectDate.setText(date);
         }
     }

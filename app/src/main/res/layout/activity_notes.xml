@@ -48,6 +48,6 @@
         android:src="@drawable/ic_add_white_24dp"
         app:borderWidth="0dp"
         app:layout_anchor="@id/bottom_app_bar"
-        app:tint="@android:color/white" />
+        app:tint="@color/colorPrimaryDark" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
