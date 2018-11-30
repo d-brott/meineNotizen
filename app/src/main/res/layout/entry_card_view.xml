@@ -5,11 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
     android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
     android:clickable="true"
+    android:elevation="1dp"
     android:focusable="true"
-    card_view:cardCornerRadius="0dp">
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,18 +23,18 @@
             android:id="@+id/text_view_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textIsSelectable="false"
             android:layout_marginBottom="5dp"
             android:fontFamily="sans-serif"
+            android:textIsSelectable="false"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/text_view_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textIsSelectable="false"
-            android:inputType="textMultiLine"
             android:fontFamily="sans-serif"
+            android:inputType="textMultiLine"
+            android:textIsSelectable="false"
             android:textSize="16sp" />
 
     </LinearLayout>
