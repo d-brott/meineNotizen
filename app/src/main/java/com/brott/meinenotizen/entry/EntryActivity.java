@@ -2,6 +2,9 @@ package com.brott.meinenotizen.entry;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.brott.meinenotizen.R;
 import com.brott.meinenotizen.database.Subject;
@@ -56,9 +59,29 @@ public class EntryActivity extends AppCompatActivity {
             }
 
             ft.addToBackStack(null);
-            // NewEntryFragment dialogFragment = NewEntryFragment.newInstance(subject.getId());
             NewEntryFragment dialogFragment = NewEntryFragment.newInstance(subject);
             dialogFragment.show(ft, "entry_dialog");
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_entry_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_help: {
+                Toast.makeText(this, "Hilfe", Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case R.id.action_impressum: {
+                Toast.makeText(this, "Impressum", Toast.LENGTH_SHORT).show();
+                break;
+            }
+        }
+        return true;
     }
 }

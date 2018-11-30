@@ -3,6 +3,7 @@ package com.brott.meinenotizen;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.brott.meinenotizen.database.Subject;
 import com.brott.meinenotizen.subject.NewSubjectFragment;
@@ -69,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_help: {
-                // do something
+                Toast.makeText(this, "Hilfe", Toast.LENGTH_SHORT).show();
                 break;
             }
             case R.id.action_impressum: {
-                // do something
+                Toast.makeText(this, "Impressum", Toast.LENGTH_SHORT).show();
                 break;
             }
         }
