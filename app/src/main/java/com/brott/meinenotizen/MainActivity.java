@@ -1,11 +1,13 @@
 package com.brott.meinenotizen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.brott.meinenotizen.database.Subject;
+import com.brott.meinenotizen.entry.EntryActivity;
 import com.brott.meinenotizen.subject.NewSubjectFragment;
 import com.brott.meinenotizen.subject.SubjectRecyclerViewAdapter;
 import com.brott.meinenotizen.subject.SubjectViewModel;
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         subjectViewModel.getAllSubjects().observe(this, subjects -> {
             if (subjects != null && subjects.size() > 0) {
                 allSubjects = subjects;
-                adapter = new SubjectRecyclerViewAdapter(subjectViewModel, subjects);
+                adapter = new SubjectRecyclerViewAdapter(subjectViewModel, subjects, this);
                 recyclerView.setAdapter(adapter);
             }
         });
@@ -70,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_help: {
-                Toast.makeText(this, "Hilfe", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, HelpActivity.class);
+                startActivity(intent);
                 break;
             }
             case R.id.action_impressum: {

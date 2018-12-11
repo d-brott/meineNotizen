@@ -25,4 +25,13 @@
     <!-- Dialoge -->
     <string name="dialog_input_error">Ungültige Eingabe</string>
 
+    <!-- HelpActivity -->
+    <string name="help_activity_title">Hilfe</string>
+    <string name="help_text">meineNotizen bietet die Möglichkeit ...</string>
+    <string name="help_subject_title">Kategorie</string>
+    <string name="help_subject_text">
+        In dieser Ansicht können neue Kategorien angelegt, geändert oder gelöscht werden.\nDurch anklicken einer Kategorie gelangt man zu den Einträgen der jeweiligen Kategorie.\nDurch ein long press auf eine Kategorie erscheint ein Menü, durch welches die Kategorie
+        bearbeitet oder gelöscht werden kann.
+    </string>
+
 </resources>

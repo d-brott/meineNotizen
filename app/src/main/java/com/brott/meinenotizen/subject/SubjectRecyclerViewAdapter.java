@@ -1,13 +1,16 @@
 package com.brott.meinenotizen.subject;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Color;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.brott.meinenotizen.R;
 import com.brott.meinenotizen.database.Subject;
@@ -26,10 +29,14 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
     private List<Subject> subjects;
     private View view;
     private SubjectViewModel subjectViewModel;
+    private Activity context;
+    private ActionMode currentActionMode;
+    private int adapterPosition;
 
-    public SubjectRecyclerViewAdapter(SubjectViewModel subjectViewModel, List<Subject> subjects) {
+    public SubjectRecyclerViewAdapter(SubjectViewModel subjectViewModel, List<Subject> subjects, Activity context) {
         this.subjects = subjects;
         this.subjectViewModel = subjectViewModel;
+        this.context = context;
     }
 
     @Override
@@ -58,7 +65,7 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
             subjectViewHolder.subjectName.setText(name);
         }
 
-        if (StringUtils.isNotBlank(date))  {
+        if (StringUtils.isNotBlank(date)) {
             subjectViewHolder.subjectDate.setText(date);
         }
     }
@@ -74,6 +81,7 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
             subjectName = itemView.findViewById(R.id.text_view_name);
             subjectDate = itemView.findViewById(R.id.text_view_date);
 
+/*
             cardView.setOnLongClickListener(view -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setMessage(R.string.dialog_delete_subject);
@@ -104,12 +112,61 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
                 alertDialog.show();
                 return false;
             });
-
+*/
             itemView.setOnClickListener(view -> {
                 Intent intent = new Intent(view.getContext(), EntryActivity.class);
                 intent.putExtra(SUBJECT_ID, subjects.get(getAdapterPosition()));
                 view.getContext().startActivity(intent);
             });
+
+            itemView.setOnLongClickListener(view -> {
+                adapterPosition = getAdapterPosition();
+                if (currentActionMode != null) {
+                    return false;
+                } else {
+                    context.startActionMode(modeCallBack);
+                    view.setSelected(true);
+                    return true;
+                }
+            });
         }
     }
+
+    private ActionMode.Callback modeCallBack = new ActionMode.Callback() {
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.setTitle("Actions");
+            mode.getMenuInflater().inflate(R.menu.actions_menu, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.menu_delete:
+                    subjectViewModel.deleteSubject(subjects.get(adapterPosition));
+                    subjects.remove(adapterPosition);
+                    notifyItemRemoved(adapterPosition);
+                    notifyItemRangeChanged(adapterPosition, getItemCount());
+                    mode.finish();
+                    return true;
+                case R.id.menu_edit:
+                    Toast.makeText(context, "Impressum", Toast.LENGTH_SHORT).show();
+                    mode.finish();
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            currentActionMode = null;
+        }
+    };
 }

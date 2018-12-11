@@ -13,6 +13,7 @@ import android.text.style.BulletSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.brott.meinenotizen.R;
@@ -104,6 +105,13 @@ public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecycler
                 alertDialog.setOnShowListener(e -> {
                     alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.WHITE);
                     alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
+
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    params.setMarginEnd(5);
+                    alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setLayoutParams(params);
                 });
 
                 alertDialog.show();

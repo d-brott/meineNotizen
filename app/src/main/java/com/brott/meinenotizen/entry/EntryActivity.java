@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.brott.meinenotizen.HelpActivity;
 import com.brott.meinenotizen.R;
 import com.brott.meinenotizen.database.Subject;
 import com.brott.meinenotizen.subject.SubjectRecyclerViewAdapter;
@@ -74,7 +75,8 @@ public class EntryActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_help: {
-                Toast.makeText(this, "Hilfe", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, HelpActivity.class);
+                startActivity(intent);
                 break;
             }
             case R.id.action_impressum: {
