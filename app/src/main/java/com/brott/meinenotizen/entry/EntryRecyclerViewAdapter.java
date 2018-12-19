@@ -1,34 +1,38 @@
 package com.brott.meinenotizen.entry;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.BulletSpan;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.brott.meinenotizen.R;
 import com.brott.meinenotizen.database.Entry;
 
 import java.util.List;
 
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecyclerViewAdapter.EntryViewHolder> {
     private List<Entry> entries;
     private EntryViewModel entryViewModel;
     private Activity context;
+    private ActionMode currentActionMode;
+    private int adapterPosition;
 
     EntryRecyclerViewAdapter(EntryViewModel entryViewModel, List<Entry> entries, Activity context) {
         this.entries = entries;
         this.entryViewModel = entryViewModel;
+        this.context = context;
     }
 
     @Override
@@ -87,6 +91,7 @@ public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecycler
             entryTitle.setLongClickable(false);
             entryText.setLongClickable(false);
 
+            /*
             cardView.setOnLongClickListener(view -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setMessage(R.string.dialog_delete_entry);
@@ -117,6 +122,57 @@ public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecycler
                 alertDialog.show();
                 return false;
             });
+            */
+
+            cardView.setOnLongClickListener(view -> {
+                adapterPosition = getAdapterPosition();
+                if (currentActionMode != null) {
+                    return false;
+                } else {
+                    context.startActionMode(modeCallBack);
+                    view.setSelected(true);
+                    return true;
+                }
+            });
+
         }
+
+        private ActionMode.Callback modeCallBack = new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                mode.setTitle("Actions");
+                mode.getMenuInflater().inflate(R.menu.actions_menu, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_delete:
+                        entryViewModel.delete(entries.get(adapterPosition));
+                        entries.remove(adapterPosition);
+                        notifyItemRemoved(adapterPosition);
+                        notifyItemRangeChanged(adapterPosition, getItemCount());
+                        mode.finish();
+                        return true;
+                    case R.id.menu_edit:
+                        Toast.makeText(context, "Editieren", Toast.LENGTH_SHORT).show();
+                        mode.finish();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                currentActionMode = null;
+            }
+        };
     }
 }

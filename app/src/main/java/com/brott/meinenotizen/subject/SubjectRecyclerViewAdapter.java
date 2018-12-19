@@ -156,7 +156,7 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
                     mode.finish();
                     return true;
                 case R.id.menu_edit:
-                    Toast.makeText(context, "Impressum", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Editieren", Toast.LENGTH_SHORT).show();
                     mode.finish();
                     return true;
                 default:
