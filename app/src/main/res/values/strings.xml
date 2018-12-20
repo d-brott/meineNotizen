@@ -1,37 +1,36 @@
 <resources>
-    <string name="app_name">Meine Notizen</string>
+    <string name="app_name">MyNotes</string>
 
     <!-- fragment_new_entry_dialog -->
-    <string name="new_entry_dialog_header">Neuer Eintrag</string>
-    <string name="new_entry_dialog_btn_save">Speichern</string>
-    <string name="new_entry_dialog_hint_title">Titel</string>
+    <string name="new_entry_dialog_header">New Entry</string>
+    <string name="new_entry_dialog_btn_save">Save</string>
+    <string name="new_entry_dialog_hint_title">Title</string>
     <string name="new_entry_dialog_hint_text">Text</string>
 
     <!-- fragment_new_subject_dialog -->
-    <string name="new_subject_dialog_hint_title">Neue Kategorie</string>
-    <string name="new_subject_dialog_hint_description">Beschreibung (optional)</string>
-    <string name="new_subject_dialog_btn_save">Speichern</string>
-    <string name="new_subject_dialog_btn_cancel">Abbrechen</string>
+    <string name="new_subject_dialog_hint_title">New Category</string>
+    <string name="new_subject_dialog_hint_description">Description (optional)</string>
+    <string name="new_subject_dialog_btn_save">Save</string>
+    <string name="new_subject_dialog_btn_cancel">Cancel</string>
 
     <!-- EntryRecyclerViewAdapter -->
-    <string name="dialog_delete_entry">Eintrag löschen?</string>
-    <string name="dialog_delete_entry_delete">Löschen</string>
-    <string name="dialog_delete_entry_cancel">Abbrechen</string>
+    <string name="dialog_delete_entry">Delete Entry?</string>
+    <string name="dialog_delete_entry_delete">Delete</string>
+    <string name="dialog_delete_entry_cancel">Cancel</string>
 
     <!-- SubjectRecyclerViewAdapter -->
-    <string name="subject_last_change">Zuletzt geändert am</string>
-    <string name="dialog_delete_subject">Kategorie und untergeordnete Einträge löschen?</string>
+    <string name="subject_last_change">Last modified</string>
+    <string name="dialog_delete_subject">Delete catagory and related entries?</string>
 
     <!-- Dialoge -->
-    <string name="dialog_input_error">Ungültige Eingabe</string>
+    <string name="dialog_input_error">Invalid input</string>
 
     <!-- HelpActivity -->
-    <string name="help_activity_title">Hilfe</string>
-    <string name="help_text">meineNotizen bietet die Möglichkeit ...</string>
-    <string name="help_subject_title">Kategorie</string>
+    <string name="help_activity_title">Help</string>
+    <string name="help_text">...</string>
+    <string name="help_subject_title">...</string>
     <string name="help_subject_text">
-        In dieser Ansicht können neue Kategorien angelegt, geändert oder gelöscht werden.\nDurch anklicken einer Kategorie gelangt man zu den Einträgen der jeweiligen Kategorie.\nDurch ein long press auf eine Kategorie erscheint ein Menü, durch welches die Kategorie
-        bearbeitet oder gelöscht werden kann.
+        Long press ...
     </string>
 
 </resources>

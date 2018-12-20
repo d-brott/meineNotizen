@@ -76,10 +76,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             }
-            case R.id.action_impressum: {
-                Toast.makeText(this, "Impressum", Toast.LENGTH_SHORT).show();
-                break;
-            }
         }
         return true;
     }

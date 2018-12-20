@@ -12,7 +12,7 @@
         android:theme="@style/Theme.MeineNotizen">
         <activity
             android:name=".MainActivity"
-            android:label="Meine Notizen">
+            android:label="MyNotes">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

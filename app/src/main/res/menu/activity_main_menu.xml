@@ -7,10 +7,6 @@
 
     <item
         android:id="@+id/action_help"
-        android:title="Hilfe"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/action_impressum"
-        android:title="Impressum"
+        android:title="@string/help_activity_title"
         app:showAsAction="never"/>
 </menu>
